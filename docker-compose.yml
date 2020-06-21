@@ -1,0 +1,38 @@
+version: '3.8'
+services:
+  pgdb:
+    container_name: parking_lot_db
+    image:  postgres
+    hostname: pgdb
+    restart: always
+    ports:
+      - 5442:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=parking_lot
+    networks: 
+      - parking_lot_network
+  backend:
+    container_name: parking_lot_backend
+    build:  ./backend
+    command: bash -c "python manage.py makemigrations api
+      && python manage.py makemigrations user
+      && python manage.py migrate
+      && python manage.py populate_db
+      && python manage.py runserver 0.0.0.0:8000"
+    restart: on-failure
+    networks: 
+      - parking_lot_network
+    ports:
+      - "8000:8000"
+    links: 
+      - pgdb
+    depends_on:
+      - pgdb
+    environment: 
+      DB_HOST: pgdb
+
+networks:
+  parking_lot_network:
+    name: 'pl_network'
