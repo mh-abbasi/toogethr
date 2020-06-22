@@ -128,27 +128,6 @@ class HttpClient {
 
     return endpoint()
   }
-
-  /**
-   * Check JWT token sender in headers by provided email string in request body
-   */
-  checkJwtToken = payload => {
-    const endpoint = this.createFetch({
-      url: '/user/test_auth',
-      method: 'POST',
-    })
-
-    return endpoint(payload)
-  }
-
-  getServerInfo = () => {
-    const endpoint = this.createFetch({
-      url: `/server/info`,
-      method: 'GET',
-    })
-
-    return endpoint()
-  }
 }
 
 export { HttpClient }
