@@ -20,6 +20,7 @@ Simply run `docker-compose up -d --build --force-recreate` in this directory!
     *   Adding frontend to docker container
     *   Changing the UI based on a good design
     *   Better notifications for user
+    *   Implement refreshing the access token
     *   Breaking the components to smaller components
     *   Adding slot management page
     *   Adding user profile page
